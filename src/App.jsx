@@ -161,8 +161,8 @@ export default function App() {
         ))}
       </div>
       {/* Character guide + Ask AI link */}
-      <div style={{ padding: "0 18px 18px", marginTop: 36, textAlign: "center" }}>
-        <div style={{ fontSize: "3.8rem", lineHeight: 1 }}>{char.emoji}</div>
+      <div style={{ padding: "0 18px 18px", marginTop: 80, textAlign: "center" }}>
+        <div className="bounce-character" style={{ fontSize: "3.8rem", lineHeight: 1 }}>{char.emoji}</div>
         <div style={{ fontSize: ".8rem", color: "#666", marginTop: 6, lineHeight: 1.45 }}>{char.greeting}</div>
         <div style={{ marginTop: 14, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, color: "#3a9e7e", fontSize: ".84rem", fontWeight: 600 }} onClick={() => setAiOpen(true)}>
           🔍 <span>Ask Animal Expert</span>
@@ -189,7 +189,7 @@ export default function App() {
             <div style={{ fontSize: "1.1rem", fontWeight: 600, letterSpacing: ".03em", marginBottom: 14, color: catColors[activeCat].primary }}>
               {categories.find(c => c.id === activeCat)?.emoji} {categories.find(c => c.id === activeCat)?.label}
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(260px,1fr))", gap: 18 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))", gap: 18 }}>
               {filtered.map((a) => <AnimalCard key={a.id} animal={a} onClick={() => setSelectedAnimal(a)} />)}
             </div>
           </div>
@@ -282,12 +282,12 @@ function CatBtn({ label, emoji, active, color, onClick }) {
 function AnimalCard({ animal, onClick }) {
   const col = catColors[animal.cat];
   return (
-    <div onClick={onClick} style={{ background: "#fff", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,.05)", borderTop: `3px solid ${col.primary}`, cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s" }}
+    <div onClick={onClick} style={{ background: "#fff", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,.05)", borderTop: `3px solid ${col.primary}`, cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s", aspectRatio: "1/1" }}
       onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,.09)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
       onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,.05)"; e.currentTarget.style.transform = "none"; }}>
-      <div style={{ padding: "16px 18px", flex: 1, display: "flex", flexDirection: "column" }}>
-        <div style={{ fontSize: "1rem", fontWeight: 600, color: "#333", lineHeight: 1.3, marginBottom: 6 }}>{animal.name}</div>
-        <div style={{ fontSize: ".88rem", color: "#555", lineHeight: 1.55, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden", flex: 1 }}>{animal.chars}</div>
+      <div style={{ padding: "20px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
+        <div style={{ fontSize: "1.12rem", fontWeight: 500, color: "#444", lineHeight: 1.3, marginBottom: 14 }}>{animal.name}</div>
+        <div style={{ fontSize: "1rem", color: "#555", lineHeight: 1.6, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden", flex: 1 }}>{animal.chars}</div>
       </div>
     </div>
   );
