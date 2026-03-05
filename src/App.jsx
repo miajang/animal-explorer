@@ -103,19 +103,16 @@ export default function App() {
   const [view, setView] = useState("loading");
   const [activeCat, setActiveCat] = useState("amphibians");
 
-  // Load saved profile on startup
+  // Load saved profile on startup (skip onboarding, use defaults)
   useEffect(() => {
     try {
       const saved = localStorage.getItem("profile");
-      if (saved) {
-        setProfile(JSON.parse(saved));
-        setView("home");
-      } else {
-        setView("onboarding");
-      }
+      if (saved) setProfile(JSON.parse(saved));
+      else setProfile({ name: "Explorer", character: "basilisk" });
     } catch {
-      setView("onboarding");
+      setProfile({ name: "Explorer", character: "basilisk" });
     }
+    setView("home");
   }, []);
   const [search, setSearch] = useState("");
   const [selectedAnimal, setSelectedAnimal] = useState(null);
@@ -147,7 +144,6 @@ export default function App() {
 
   // ── Onboarding gate ──
   if (view === "loading") return <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Segoe UI',system-ui,sans-serif", color: "#aaa" }}>Loading...</div>;
-  if (view === "onboarding") return <Onboarding onComplete={(p) => { saveProfile(p); setView("home"); }} />;
 
   const navigateTo = (catId) => { setActiveCat(catId); setSelectedAnimal(null); setDrawerOpen(false); };
 
@@ -282,18 +278,18 @@ function CatBtn({ label, emoji, active, color, onClick }) {
 function AnimalCard({ animal, onClick }) {
   const col = catColors[animal.cat];
   return (
-    <div onClick={onClick} style={{ background: "#fff", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,.05)", borderTop: `3px solid ${col.primary}`, cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s", aspectRatio: "1/1" }}
+    <div onClick={onClick} style={{ background: "#fff", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,.05)", borderTop: `3px solid ${col.primary}`, cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s" }}
       onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,.09)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
       onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,.05)"; e.currentTarget.style.transform = "none"; }}>
       <div style={{ padding: "20px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
         <div style={{ fontSize: "1.12rem", fontWeight: 500, color: "#444", lineHeight: 1.3, marginBottom: 14 }}>{animal.name}</div>
-        <div style={{ fontSize: "1rem", color: "#555", lineHeight: 1.6, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden", flex: 1 }}>{animal.chars}</div>
+        <div style={{ fontSize: ".92rem", color: "#555", lineHeight: 1.65, flex: 1 }}>{animal.who}</div>
       </div>
     </div>
   );
 }
 
-// ─── DETAIL VIEW (full animal page: Who Am I, Size, Food, Habitat, Fun Facts) ───
+// ─── DETAIL VIEW (full animal page: Size, Food, Habitat, Fun Facts) ───
 function DetailView({ animal, char, onBack, onAskAI }) {
   const col = catColors[animal.cat];
   // Section component — no divider lines, header color provides separation
@@ -304,14 +300,13 @@ function DetailView({ animal, char, onBack, onAskAI }) {
     </div>
   );
   return (
-    <div style={{ padding: "20px 24px", maxWidth: 720 }}>
+    <div style={{ padding: "20px 24px" }}>
       <div onClick={onBack} style={{ fontSize: ".92rem", color: col.primary, cursor: "pointer", fontWeight: 500, marginBottom: 16, display: "inline-block" }}>← Back</div>
       <div style={{ marginBottom: 18 }}>
         <div style={{ fontSize: "1.3rem", fontWeight: 700, color: "#333" }}>{animal.name}</div>
         <div style={{ fontSize: ".88rem", color: col.primary, fontWeight: 600, marginTop: 3 }}>{categories.find(c => c.id === animal.cat)?.label}</div>
       </div>
       <div style={{ background: "#fff", borderRadius: 14, boxShadow: "0 2px 10px rgba(0,0,0,.04)", padding: "4px 24px 24px" }}>
-        <Sec icon="🔍" title="Who Am I?">{animal.who}</Sec>
         <Sec icon="📏" title="Size">{animal.size}</Sec>
         <Sec icon="🍽️" title="Food">{animal.food}</Sec>
         <Sec icon="🏠" title="Habitat">{animal.habitat}</Sec>
@@ -336,53 +331,10 @@ function DetailView({ animal, char, onBack, onAskAI }) {
   );
 }
 
-// ─── ONBOARDING (first-time setup: name, gender toggle, birthday, character picker) ───
-function Onboarding({ onComplete }) {
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
-  const [bday, setBday] = useState("");
-  const [charId, setCharId] = useState("basilisk");
-  return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg,#e8f5e9,#e3f2fd)", fontFamily: "'Segoe UI',system-ui,sans-serif", padding: 20 }}>
-      <div style={{ background: "#fff", borderRadius: 18, padding: "40px 36px", maxWidth: 440, width: "100%", boxShadow: "0 8px 30px rgba(0,0,0,.08)" }}>
-        <div style={{ textAlign: "center", marginBottom: 28 }}>
-          <div style={{ fontSize: "2.8rem", marginBottom: 6 }}>🐢</div>
-          <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "#0d7a5f" }}>Animal Explorer</div>
-          <div style={{ fontSize: ".86rem", color: "#aaa", marginTop: 4 }}>Discover the wild world, one animal at a time</div>
-        </div>
-        <label style={lbl}>Your Name</label>
-        <input value={name} onChange={e => setName(e.target.value)} placeholder="Enter your name" style={inp} />
-        <label style={lbl}>Gender</label>
-        {/* Gender toggle buttons */}
-        <div style={{ display: "flex", gap: 10, marginTop: 2 }}>
-          {["boy", "girl"].map(g => (
-            <button key={g} onClick={() => setGender(g)} style={{ flex: 1, padding: "10px 0", borderRadius: 10, border: gender === g ? "2px solid #0d7a5f" : "2px solid #e0e5e3", background: gender === g ? "#e8f5e9" : "#fff", color: gender === g ? "#0d7a5f" : "#888", fontWeight: 600, fontSize: ".92rem", cursor: "pointer", transition: "all .15s", textTransform: "capitalize" }}>{g}</button>
-          ))}
-        </div>
-        <label style={lbl}>Birth Date</label>
-        <input type="date" value={bday} onChange={e => setBday(e.target.value)} style={inp} />
-        <label style={{ ...lbl, marginTop: 20 }}>Choose Your Animal Character</label>
-        <div style={{ display: "flex", gap: 14, justifyContent: "center", marginTop: 10 }}>
-          {characters.map(c => (
-            <div key={c.id} onClick={() => setCharId(c.id)} style={{ textAlign: "center", cursor: "pointer", padding: 12, borderRadius: 14, border: charId === c.id ? "2.5px solid #0d7a5f" : "2.5px solid #e8eeec", background: charId === c.id ? "#e8f5e9" : "#fff", transition: "all .15s", flex: 1 }}>
-              <div style={{ fontSize: "2.4rem" }}>{c.emoji}</div>
-            </div>
-          ))}
-        </div>
-        <button onClick={() => { if (name.trim()) onComplete({ name: name.trim(), gender, bday, character: charId }); }} disabled={!name.trim()}
-          style={{ width: "100%", marginTop: 28, padding: "14px 0", background: name.trim() ? "#0d7a5f" : "#ccc", color: "#fff", border: "none", borderRadius: 12, fontSize: "1rem", fontWeight: 700, cursor: name.trim() ? "pointer" : "default" }}>
-          Start Exploring! Let's Go!
-        </button>
-      </div>
-    </div>
-  );
-}
 
-// ─── SETTINGS POPOVER (edit profile: name, gender toggle, birthday, character) ───
+// ─── SETTINGS POPOVER (edit profile: name + character) ───
 function SettingsPopover({ profile, setProfile, onClose }) {
   const [n, setN] = useState(profile?.name || "");
-  const [g, setG] = useState(profile?.gender || "");
-  const [b, setB] = useState(profile?.bday || "");
   const [ch, setCh] = useState(profile?.character || "basilisk");
   useEffect(() => {
     const h = (e) => { if (!e.target.closest(".sp-inner")) onClose(); };
@@ -397,24 +349,15 @@ function SettingsPopover({ profile, setProfile, onClose }) {
       </div>
       <label style={lblS}>Name</label>
       <input value={n} onChange={e => setN(e.target.value)} style={inpS} />
-      {/* Gender toggle buttons */}
-      <label style={{ ...lblS, marginTop: 16 }}>Gender</label>
-      <div style={{ display: "flex", gap: 8, marginTop: 2 }}>
-        {["boy", "girl"].map(gv => (
-          <button key={gv} onClick={() => setG(gv)} style={{ flex: 1, padding: "8px 0", borderRadius: 8, border: g === gv ? "2px solid #0d7a5f" : "2px solid #e0e5e3", background: g === gv ? "#e8f5e9" : "#fff", color: g === gv ? "#0d7a5f" : "#888", fontWeight: 600, fontSize: ".84rem", cursor: "pointer", transition: "all .15s", textTransform: "capitalize" }}>{gv}</button>
-        ))}
-      </div>
-      <label style={{ ...lblS, marginTop: 16 }}>Birth Date</label>
-      <input type="date" value={b} onChange={e => setB(e.target.value)} style={inpS} />
       <label style={{ ...lblS, marginTop: 20 }}>Animal Character</label>
       <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
         {characters.map(c => (
-          <div key={c.id} onClick={() => setCh(c.id)} style={{ textAlign: "center", cursor: "pointer", padding: 8, borderRadius: 12, border: ch === c.id ? "2.5px solid #0d7a5f" : "2.5px solid #e8eeec", background: ch === c.id ? "#e8f5e9" : "#fff", flex: 1, transition: "all .15s" }}>
+          <div key={c.id} onClick={() => setCh(c.id)} style={{ textAlign: "center", cursor: "pointer", padding: 8, borderRadius: 12, border: ch === c.id ? "1px solid #0d7a5f" : "1px solid #e8eeec", background: ch === c.id ? "#e8f5e9" : "#fff", flex: 1, transition: "all .15s" }}>
             <div style={{ fontSize: "1.6rem" }}>{c.emoji}</div>
           </div>
         ))}
       </div>
-      <button onClick={() => { const p = { name: n.trim() || "Explorer", gender: g, bday: b, character: ch }; setProfile(p); try { localStorage.setItem("profile", JSON.stringify(p)); } catch {} onClose(); }}
+      <button onClick={() => { const p = { ...profile, name: n.trim() || "Explorer", character: ch }; setProfile(p); try { localStorage.setItem("profile", JSON.stringify(p)); } catch {} onClose(); }}
         style={{ width: "100%", marginTop: 20, padding: "10px 0", background: "#0d7a5f", color: "#fff", border: "none", borderRadius: 10, fontSize: ".88rem", fontWeight: 600, cursor: "pointer" }}>
         Save Changes
       </button>
