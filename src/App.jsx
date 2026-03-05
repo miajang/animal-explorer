@@ -377,9 +377,9 @@ function AskAIOverlay({ char, profile, animal, onClose }) {
     const uq = q.trim(); setQ(""); setMsgs(p => [...p, { role: "user", text: uq }]); setLoading(true);
     try {
       const sys = `You are ${char.name}, a friendly animal expert guide for a child named ${profile?.name || "a kid"} who is about 4-5 years old. ${animal ? `The child is learning about ${animal.name}. Facts: ${animal.who} ${animal.food} ${animal.habitat} ${animal.facts.join(". ")}` : ""} Keep answers concise (2-3 sentences max), fun, age-appropriate, and educational. Use simple words. You can use one emoji per response.`;
-      const res = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, system: sys, messages: [{ role: "user", content: uq }] }) });
+      const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ system: sys, message: uq }) });
       const data = await res.json();
-      const txt = data.content?.map(b => b.text || "").join("") || "Hmm, I'm not sure! Try asking something else.";
+      const txt = data.text || "Hmm, I'm not sure! Try asking something else.";
       setMsgs(p => [...p, { role: "ai", text: txt }]);
     } catch { setMsgs(p => [...p, { role: "ai", text: "Oops! My brain got tangled. Try again! 🤔" }]); }
     setLoading(false);
