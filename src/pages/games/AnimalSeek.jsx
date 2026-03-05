@@ -592,10 +592,9 @@ function CelebrationOverlay({scene,onNext,onReplay}){
 /* ═══ SCENE SELECTOR ═══ */
 function SceneSelector({onSelect,completed,onBack}){
   return <div style={{minHeight:"100vh",background:"linear-gradient(135deg,#0D4F4F 0%,#1A7A6D 35%,#2A9D8F 65%,#5AB8A9 100%)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:24,fontFamily:"'Fredoka','Nunito','Segoe UI',sans-serif",position:"relative"}}>
-    <button onClick={onBack} style={{position:"absolute",top:16,left:16,background:"rgba(255,255,255,.15)",border:"1.5px solid rgba(255,255,255,.25)",borderRadius:10,padding:"6px 14px",fontSize:".78rem",fontWeight:600,color:"rgba(255,255,255,.85)",cursor:"pointer",display:"flex",alignItems:"center",gap:4}}>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-      Apps
-    </button>
+    <div onClick={onBack} style={{position:"absolute",top:16,left:16,fontSize:".78rem",color:"rgba(255,255,255,.85)",cursor:"pointer",fontWeight:500,display:"flex",alignItems:"center",gap:3,zIndex:10}}>
+      <span style={{fontSize:".7rem"}}>←</span> Back to Apps
+    </div>
     <style>{`@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}`}</style>
     <div style={{fontSize:48,marginBottom:8,animation:"fl 3s ease-in-out infinite"}}>🔍</div>
     <h1 style={{fontSize:"2.2rem",fontWeight:800,color:"#fff",textShadow:"0 3px 12px rgba(0,0,0,.2)",marginBottom:6,textAlign:"center"}}>Peek & Seek!</h1>

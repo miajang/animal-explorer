@@ -201,11 +201,10 @@ export default function AnimalLibrary() {
       {/* ── HEADER (logo, tagline, search, settings gear, hamburger) ── */}
       <header style={{ background: "#fff", borderBottom: "1px solid #e8eeec", position: "sticky", top: 0, zIndex: 100, padding: "10px 20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <button onClick={() => navigate('/')} style={{ background: "#f5f7f6", border: "1px solid #e4e8e6", borderRadius: 8, padding: "6px 10px", cursor: "pointer", fontSize: ".78rem", color: "#888", display: "flex", alignItems: "center", gap: 4, fontWeight: 600, whiteSpace: "nowrap" }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-            Apps
-          </button>
           <div style={{ flex: 1, whiteSpace: "nowrap", minWidth: 0 }}>
+            <div onClick={() => navigate('/')} style={{ fontSize: ".78rem", color: "#999", cursor: "pointer", fontWeight: 500, marginBottom: 2, display: "inline-flex", alignItems: "center", gap: 3 }}>
+              <span style={{ fontSize: ".7rem" }}>←</span> Back to Apps
+            </div>
             <div style={{ fontSize: "1.35rem", fontWeight: 700, letterSpacing: "-.02em", color: "#0d7a5f" }}>Animal Library</div>
             <div style={{ fontSize: ".7rem", color: "#aaa", fontWeight: 500, letterSpacing: ".03em", marginTop: -1 }}>Discover the wild world, one animal at a time</div>
           </div>

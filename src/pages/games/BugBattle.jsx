@@ -472,10 +472,9 @@ export default function BugBattle() {
         @keyframes winPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
       `}</style>
 
-      <button onClick={() => nav('/')} className="absolute top-4 left-4 px-3 py-2 rounded-full bg-white bg-opacity-60 text-xs font-semibold text-gray-500 flex items-center gap-1 active:scale-90 transition-transform" style={{ zIndex: 20 }}>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-        Apps
-      </button>
+      <div onClick={() => nav('/')} style={{ position: "absolute", top: 16, left: 16, fontSize: ".78rem", color: "rgba(0,0,0,.45)", cursor: "pointer", fontWeight: 500, display: "flex", alignItems: "center", gap: 3, zIndex: 20 }}>
+        <span style={{ fontSize: ".7rem" }}>←</span> Back to Apps
+      </div>
       <GearIcon onClick={() => setShowSelect(true)} />
       {showSelect && <CharacterSelect currentFighters={fighters} onConfirm={(newFighters) => { handleFighterSelect(newFighters); setShowSelect(false); }} onClose={() => setShowSelect(false)} />}
 

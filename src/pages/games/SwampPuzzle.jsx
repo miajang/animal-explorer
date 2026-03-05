@@ -333,10 +333,9 @@ export default function SwampPuzzle() {
 
       {/* Back button */}
       <div style={{ position: "absolute", top: 16, left: 16, zIndex: 20 }}>
-        <button onClick={() => nav('/')} style={{ background: "rgba(255,255,255,.1)", border: "1.5px solid rgba(255,255,255,.2)", borderRadius: 10, padding: "6px 14px", fontSize: ".78rem", fontWeight: 600, color: "rgba(255,255,255,.7)", cursor: "pointer", display: "flex", alignItems: "center", gap: 4, fontFamily: "inherit" }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-          Apps
-        </button>
+        <div onClick={() => nav('/')} style={{ fontSize: ".78rem", color: "rgba(255,255,255,.7)", cursor: "pointer", fontWeight: 500, display: "flex", alignItems: "center", gap: 3 }}>
+          <span style={{ fontSize: ".7rem" }}>←</span> Back to Apps
+        </div>
       </div>
 
       {/* Header */}
