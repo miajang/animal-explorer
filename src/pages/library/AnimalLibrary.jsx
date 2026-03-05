@@ -111,9 +111,9 @@ export default function AnimalLibrary() {
     try {
       const saved = localStorage.getItem("profile");
       if (saved) setProfile(JSON.parse(saved));
-      else setProfile({ name: "Explorer", character: "basilisk" });
+      else setProfile({ name: "Evan", character: "basilisk" });
     } catch {
-      setProfile({ name: "Explorer", character: "basilisk" });
+      setProfile({ name: "Evan", character: "basilisk" });
     }
     setView("home");
   }, []);
@@ -174,7 +174,7 @@ export default function AnimalLibrary() {
     <>
       {/* Welcome bar */}
       <div style={{ background: "#f5f7f6", padding: "22px 24px 12px", display: "flex", alignItems: "center", flexWrap: "wrap" }}>
-        <span style={{ fontSize: "1.08rem", color: "#888" }}>Welcome, <span style={{ color: "#0d7a5f", fontWeight: 600 }}>{profile?.name || "Explorer"}</span>!</span>
+        <span style={{ fontSize: "1.08rem", color: "#888" }}>Welcome, <span style={{ color: "#0d7a5f", fontWeight: 600 }}>{profile?.name || "Evan"}</span>!</span>
         <span style={{ marginLeft: "auto", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, color: "#3a9e7e", fontSize: ".88rem", fontWeight: 600 }} onClick={() => setAiOpen(true)}>🔍 Ask Animal Expert</span>
       </div>
       {/* Card grid */}
@@ -363,7 +363,7 @@ function SettingsPopover({ profile, setProfile, onClose }) {
           </div>
         ))}
       </div>
-      <button onClick={() => { const p = { ...profile, name: n.trim() || "Explorer", character: ch }; setProfile(p); try { localStorage.setItem("profile", JSON.stringify(p)); } catch {} onClose(); }}
+      <button onClick={() => { const p = { ...profile, name: n.trim() || "Evan", character: ch }; setProfile(p); try { localStorage.setItem("profile", JSON.stringify(p)); } catch {} onClose(); }}
         style={{ width: "100%", marginTop: 20, padding: "10px 0", background: "#0d7a5f", color: "#fff", border: "none", borderRadius: 10, fontSize: ".88rem", fontWeight: 600, cursor: "pointer" }}>
         Save Changes
       </button>
