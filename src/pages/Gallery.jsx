@@ -32,7 +32,7 @@ export default function Gallery() {
 
         {/* Footer */}
         <div className="text-xs text-gray-300 text-center mt-8">
-          Animal Explorer
+          Powered by Grandma ❤️
         </div>
       </div>
     </div>
