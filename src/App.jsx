@@ -161,9 +161,6 @@ export default function App() {
       <div style={{ padding: "0 18px 18px", marginTop: 80, textAlign: "center" }}>
         <div className="bounce-character" style={{ fontSize: "3.8rem", lineHeight: 1 }}>{char.emoji}</div>
         <div style={{ fontSize: ".8rem", color: "#666", marginTop: 6, lineHeight: 1.45 }}>{char.greeting}</div>
-        <div style={{ marginTop: 14, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, color: "#3a9e7e", fontSize: ".84rem", fontWeight: 600 }} onClick={() => setAiOpen(true)}>
-          🔍 <span>Ask Animal Expert</span>
-        </div>
       </div>
     </div>
   );
