@@ -31,9 +31,7 @@ export default function Gallery() {
         )}
 
         {/* Footer */}
-        <div className="text-xs text-gray-300 text-center mt-8">
-          Powered by Grandma ❤️
-        </div>
+        <div style={{ textAlign: "center", padding: "24px 0 8px", fontSize: ".78rem", color: "#999" }}>Powered by Grandma ❤️</div>
       </div>
     </div>
   );
