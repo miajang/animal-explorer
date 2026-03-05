@@ -176,7 +176,7 @@ export default function App() {
       {/* Welcome bar */}
       <div style={{ background: "#f5f7f6", padding: "22px 24px 12px", display: "flex", alignItems: "center", flexWrap: "wrap" }}>
         <span style={{ fontSize: "1.08rem", color: "#888" }}>Welcome, <span style={{ color: "#0d7a5f", fontWeight: 600 }}>{profile?.name || "Explorer"}</span>!</span>
-        <span style={{ marginLeft: "auto", fontSize: ".88rem", color: "#aaa" }}><span style={{ color: "#0d7a5f", fontWeight: 600 }}>{filtered.length}</span> animals</span>
+        <span style={{ marginLeft: "auto", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, color: "#3a9e7e", fontSize: ".88rem", fontWeight: 600 }} onClick={() => setAiOpen(true)}>🔍 Ask Animal Expert</span>
       </div>
       {/* Card grid */}
       <div style={{ padding: "20px 24px" }}>
