@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import animalIcons from "./animalIcons";
 
 // ─── CATEGORIES (sidebar navigation items) ───
 const categories = [
@@ -16,70 +17,6 @@ const characters = [
   { id: "anaconda", name: "Anaconda", emoji: "🐍", greeting: "Ssssup! Let's discover amazing animals!" },
   { id: "crab", name: "Crab", emoji: "🦀", greeting: "Snip snap! Ready to learn cool facts?" },
 ];
-
-// ─── TRIAL ANIMAL ICONS (inline SVG for 3 amphibians) ───
-const animalIcons = {
-  "Axolotl": () => (
-    <svg width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{flexShrink:0}}>
-      <ellipse cx="32" cy="36" rx="14" ry="12" fill="#E8A0BF"/>
-      <circle cx="26" cy="33" r="2.5" fill="#333"/>
-      <circle cx="38" cy="33" r="2.5" fill="#333"/>
-      <path d="M28 40 Q32 43 36 40" stroke="#333" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <path d="M14 22 Q8 16 6 24 Q8 28 16 30" stroke="#D4749A" strokeWidth="3" fill="#E8A0BF" strokeLinecap="round"/>
-      <path d="M12 20 Q6 12 4 20" stroke="#D4749A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M15 18 Q10 10 8 18" stroke="#D4749A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M18 17 Q14 9 12 17" stroke="#D4749A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M50 22 Q56 16 58 24 Q56 28 48 30" stroke="#D4749A" strokeWidth="3" fill="#E8A0BF" strokeLinecap="round"/>
-      <path d="M52 20 Q58 12 60 20" stroke="#D4749A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M49 18 Q54 10 56 18" stroke="#D4749A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M46 17 Q50 9 52 17" stroke="#D4749A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-    </svg>
-  ),
-  "Cane Toad": () => (
-    <svg width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{flexShrink:0}}>
-      <ellipse cx="32" cy="38" rx="18" ry="14" fill="#8B9E6B"/>
-      <ellipse cx="32" cy="38" rx="18" ry="14" fill="url(#toadBumps)" opacity=".3"/>
-      <circle cx="22" cy="26" r="6" fill="#7A8E5A"/>
-      <circle cx="42" cy="26" r="6" fill="#7A8E5A"/>
-      <circle cx="22" cy="25" r="3" fill="#F5E6C8"/>
-      <circle cx="42" cy="25" r="3" fill="#F5E6C8"/>
-      <circle cx="22" cy="25" r="1.8" fill="#333"/>
-      <circle cx="42" cy="25" r="1.8" fill="#333"/>
-      <path d="M28 42 Q32 45 36 42" stroke="#5A6E3A" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <ellipse cx="26" cy="44" rx="2" ry="1" fill="#7A8E5A" opacity=".5"/>
-      <ellipse cx="38" cy="44" rx="2" ry="1" fill="#7A8E5A" opacity=".5"/>
-      <defs><pattern id="toadBumps" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.2" fill="#6B7E4B"/></pattern></defs>
-    </svg>
-  ),
-  "Fire Salamander": () => (
-    <svg width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{flexShrink:0}}>
-      {/* elongated lizard-like body seen from above */}
-      <ellipse cx="32" cy="32" rx="8" ry="22" fill="#333" transform="rotate(0 32 32)"/>
-      {/* head */}
-      <ellipse cx="32" cy="12" rx="7" ry="5" fill="#333"/>
-      {/* eyes */}
-      <circle cx="28" cy="10" r="1.8" fill="#F5C842"/>
-      <circle cx="36" cy="10" r="1.8" fill="#F5C842"/>
-      <circle cx="28" cy="10" r="1" fill="#333"/>
-      <circle cx="36" cy="10" r="1" fill="#333"/>
-      {/* tail tapering */}
-      <path d="M32 54 Q32 62 34 60 Q32 58 32 54" fill="#333"/>
-      {/* front legs */}
-      <path d="M26 20 Q16 16 12 20 Q14 22 18 21" stroke="#333" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M38 20 Q48 16 52 20 Q50 22 46 21" stroke="#333" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      {/* back legs */}
-      <path d="M26 44 Q16 48 12 46 Q14 44 18 44" stroke="#333" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      <path d="M38 44 Q48 48 52 46 Q50 44 46 44" stroke="#333" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      {/* yellow spots */}
-      <ellipse cx="30" cy="22" rx="2.5" ry="1.8" fill="#F5C842"/>
-      <ellipse cx="35" cy="28" rx="2" ry="1.5" fill="#F5C842"/>
-      <ellipse cx="29" cy="34" rx="2.2" ry="1.6" fill="#F5C842"/>
-      <ellipse cx="35" cy="40" rx="2" ry="1.5" fill="#F5C842"/>
-      <ellipse cx="30" cy="46" rx="1.8" ry="1.3" fill="#F5C842"/>
-      <ellipse cx="34" cy="15" rx="1.5" ry="1.2" fill="#F5C842"/>
-    </svg>
-  ),
-};
 
 // ─── CATEGORY COLORS (primary + light bg per category) ───
 const catColors = {
