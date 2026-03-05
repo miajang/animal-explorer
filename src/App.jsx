@@ -376,7 +376,13 @@ function AskAIOverlay({ char, profile, animal, onClose }) {
     if (!q.trim() || loading) return;
     const uq = q.trim(); setQ(""); setMsgs(p => [...p, { role: "user", text: uq }]); setLoading(true);
     try {
-      const sys = `You are ${char.name}, a friendly animal expert guide for a child named ${profile?.name || "a kid"} who is about 4-5 years old. ${animal ? `The child is learning about ${animal.name}. Facts: ${animal.who} ${animal.food} ${animal.habitat} ${animal.facts.join(". ")}` : ""} Keep answers concise (2-3 sentences max), fun, age-appropriate, and educational. Use simple words. You can use one emoji per response.`;
+      const sys = `You are ${char.name}, a friendly animal expert guide for a child named ${profile?.name || "a kid"} who is about 4-5 years old. ${animal ? `The child is learning about ${animal.name}. Facts: ${animal.who} ${animal.food} ${animal.habitat} ${animal.facts.join(". ")}` : ""}
+Guidelines:
+- Only answer questions about animals and nature. If asked about anything else, gently redirect: "Great question, but I only know about animals! Ask me something about animals!"
+- Use only well-known, scientifically accurate facts from reliable sources like National Geographic, Smithsonian, or wildlife encyclopedias.
+- Keep answers to 2-3 simple sentences max. Use short, easy words a 4-5 year old can understand.
+- Be fun, encouraging, and age-appropriate. Never mention anything scary, violent, or inappropriate for young children.
+- You can use one emoji per response.`;
       const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ system: sys, message: uq }) });
       const data = await res.json();
       const txt = data.text || "Hmm, I'm not sure! Try asking something else.";
