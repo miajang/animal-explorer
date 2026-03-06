@@ -4,11 +4,11 @@
  */
 export const APPS = [
   {
-    id: 'animal-library',
-    title: 'Animal Library',
-    description: 'Explore 54 animals across 6 categories with fun facts, sounds, and an AI chat companion.',
+    id: 'animal-explorer',
+    title: 'Animal Explorer',
+    description: 'Discover animals from around the world with fun facts, sounds, and an AI chat companion.',
     category: 'library',
-    path: '/library/animal-library',
+    path: '/library/animal-explorer',
     accent: '#2E7D32',
     icon: 'book',
   },
@@ -32,8 +32,8 @@ export const APPS = [
   },
   {
     id: 'swamp-puzzle',
-    title: 'Swamp Puzzle',
-    description: 'Drag and drop swamp animals into their matching shadow slots in this atmospheric puzzle.',
+    title: 'Word Match',
+    description: 'See the animal, find the word — how fast can you match them all?',
     category: 'games',
     path: '/games/swamp-puzzle',
     accent: '#1a3a2a',

@@ -9,7 +9,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Gallery />} />
-      <Route path="/library/animal-library" element={<AnimalLibrary />} />
+      <Route path="/library/animal-explorer" element={<AnimalLibrary />} />
       <Route path="/games/animal-seek" element={<AnimalSeek />} />
       <Route path="/games/bug-battle" element={<BugBattle />} />
       <Route path="/games/swamp-puzzle" element={<SwampPuzzle />} />

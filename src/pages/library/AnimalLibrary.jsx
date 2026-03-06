@@ -173,9 +173,8 @@ export default function AnimalLibrary() {
   ) : (
     <>
       {/* Welcome bar */}
-      <div style={{ background: "#f5f7f6", padding: "22px 24px 12px", display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+      <div style={{ background: "#f5f7f6", padding: "22px 24px 12px", display: "flex", alignItems: "center" }}>
         <span style={{ fontSize: "1.08rem", color: "#888" }}>Welcome, <span style={{ color: "#0d7a5f", fontWeight: 600 }}>{profile?.name || "Evan"}</span>!</span>
-        <span style={{ marginLeft: "auto", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, color: "#3a9e7e", fontSize: ".88rem", fontWeight: 600 }} onClick={() => setAiOpen(true)}>🔍 Ask Animal Expert</span>
       </div>
       {/* Card grid */}
       <div style={{ padding: "20px 24px" }}>
@@ -191,7 +190,15 @@ export default function AnimalLibrary() {
           </div>
         )}
         {/* Footer */}
-        <div style={{ textAlign: "center", padding: "32px 0 12px", fontSize: ".78rem", color: "#999" }}>Powered by Grandma ❤️</div>
+        <div style={{ padding: "32px 0 12px", textAlign: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" style={{ width: 16, height: 16, flexShrink: 0 }}><circle cx="24" cy="24" r="24" fill="#0d7a5f"/><g fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" transform="translate(11,11) scale(1.08)"><path d="M12 4c-1.5 0-3 1-3 3s1.5 3 3 3 3-1 3-3-1.5-3-3-3z"/><path d="M8 10c-2 0-4 2-4 4l2 6"/><path d="M16 10c2 0 4 2 4 4l-2 6"/><path d="M10 14l-1 8h6l-1-8"/></g></svg>
+            <span style={{ fontSize: ".82rem" }}><span style={{ fontWeight: 500, color: "#0d7a5f" }}>Animal</span><span style={{ fontWeight: 300, color: "#0d7a5f" }}>Explorer</span></span>
+            <span style={{ fontSize: ".68rem", color: "#aaa" }}>&middot;</span>
+            <span style={{ fontSize: ".68rem", color: "#aaa" }}>Discover the wild world</span>
+          </div>
+          <div style={{ fontSize: ".68rem", color: "#aaa", marginTop: 10 }}>Powered by Grandma <span style={{ color: "#e0aab8" }}>&hearts;</span></div>
+        </div>
       </div>
     </>
   );
@@ -199,40 +206,55 @@ export default function AnimalLibrary() {
   return (
     <div style={{ minHeight: "100vh", background: "#fff", fontFamily: "'Segoe UI',system-ui,sans-serif", color: "#555" }}>
       {/* ── HEADER (logo, tagline, search, settings gear, hamburger) ── */}
-      <header style={{ background: "#fff", borderBottom: "1px solid #e8eeec", position: "sticky", top: 0, zIndex: 100, padding: "10px 20px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ flex: 1, whiteSpace: "nowrap", minWidth: 0 }}>
-            <div onClick={() => navigate('/')} style={{ fontSize: ".78rem", color: "#999", cursor: "pointer", fontWeight: 500, marginBottom: 2, display: "inline-flex", alignItems: "center", gap: 3 }}>
-              <span style={{ fontSize: ".7rem" }}>←</span> Back to Apps
+      <header style={{ background: "#fff", borderBottom: "1px solid #e8eeec", position: "sticky", top: 0, zIndex: 100, padding: "12px 20px" }}>
+        <div onClick={() => navigate('/')} style={{ fontSize: ".78rem", color: "#999", cursor: "pointer", fontWeight: 500, marginBottom: 4, display: "inline-flex", alignItems: "center", gap: 3 }}>
+          <span style={{ fontSize: ".7rem" }}>←</span> Back to Apps
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gridTemplateRows: "auto auto", columnGap: 16, rowGap: 4 }}>
+          {/* Col 1: icon + logo + tagline (merged, bottom-aligned) */}
+          <div style={{ gridRow: "1/3", display: "flex", alignItems: "flex-end" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" style={{ width: 26, height: 26, flexShrink: 0 }}><circle cx="24" cy="24" r="24" fill="#0d7a5f"/><g fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" transform="translate(11,11) scale(1.08)"><path d="M12 4c-1.5 0-3 1-3 3s1.5 3 3 3 3-1 3-3-1.5-3-3-3z"/><path d="M8 10c-2 0-4 2-4 4l2 6"/><path d="M16 10c2 0 4 2 4 4l-2 6"/><path d="M10 14l-1 8h6l-1-8"/></g></svg>
+              <div>
+                <div style={{ fontSize: "1.1rem" }}><span style={{ fontWeight: 500, color: "#0d7a5f" }}>Animal</span><span style={{ fontWeight: 300, color: "#0d7a5f" }}>Explorer</span></div>
+                <div style={{ fontSize: ".72rem", color: "#aaa", marginTop: 1 }}>Discover the wild world</div>
+              </div>
             </div>
-            <div style={{ fontSize: "1.35rem", fontWeight: 700, letterSpacing: "-.02em", color: "#0d7a5f" }}>Animal Library</div>
-            <div style={{ fontSize: ".7rem", color: "#aaa", fontWeight: 500, letterSpacing: ".03em", marginTop: -1 }}>Discover the wild world, one animal at a time</div>
           </div>
-          {/* Desktop search */}
+          {/* Col 2: search (merged, bottom-aligned) — desktop only */}
           {!isMobile && (
-            <div style={{ flex: 1, maxWidth: 420 }}>
-              <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search animals…" style={{ width: "100%", padding: "8px 14px", border: "1.5px solid #dce4e1", borderRadius: 8, fontSize: ".92rem", outline: "none", color: "#555", boxSizing: "border-box" }} />
+            <div style={{ gridRow: "1/3", display: "flex", alignItems: "flex-end", paddingLeft: 12 }}>
+              <div style={{ maxWidth: 360, width: "100%" }}>
+                <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search animals…" style={{ width: "100%", padding: "7px 14px", border: "1px solid #dce4e1", borderRadius: 8, fontSize: ".88rem", outline: "none", color: "#555", boxSizing: "border-box" }} />
+              </div>
             </div>
           )}
-          {/* Settings + hamburger (right side) */}
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          {/* Col 3 row 1: settings + hamburger */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 4 }}>
             <div style={{ position: "relative" }} onClick={e => e.stopPropagation()}>
-              <button onClick={() => setSettingsOpen(!settingsOpen)} style={{ width: 36, height: 36, borderRadius: 8, background: "transparent", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#0d7a5f" }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <button onClick={() => setSettingsOpen(!settingsOpen)} style={{ width: 34, height: 34, borderRadius: 8, background: "transparent", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg viewBox="0 0 24 24" style={{ width: 18, height: 18, stroke: "#666", fill: "none", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" }}><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
               </button>
               {settingsOpen && <SettingsPopover profile={profile} setProfile={setProfile} onClose={() => setSettingsOpen(false)} />}
             </div>
             {isMobile && (
-              <button onClick={() => setDrawerOpen(true)} style={{ display: "flex", flexDirection: "column", gap: 4, width: 36, height: 36, background: "#f5f8f7", border: "1.5px solid #e0e8e5", borderRadius: 8, cursor: "pointer", padding: 8, alignItems: "stretch", justifyContent: "center", flexShrink: 0 }}>
+              <button onClick={() => setDrawerOpen(true)} style={{ display: "flex", flexDirection: "column", gap: 4, width: 34, height: 34, background: "#f5f8f7", border: "1.5px solid #e0e8e5", borderRadius: 8, cursor: "pointer", padding: 7, alignItems: "stretch", justifyContent: "center", flexShrink: 0 }}>
                 <span style={{ height: 2, background: "#888", borderRadius: 2 }} /><span style={{ height: 2, background: "#888", borderRadius: 2 }} /><span style={{ height: 2, background: "#888", borderRadius: 2 }} />
               </button>
             )}
           </div>
+          {/* Col 3 row 2: Ask Animal Expert */}
+          <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", paddingRight: 8 }}>
+            <span onClick={() => setAiOpen(true)} style={{ display: "flex", alignItems: "center", gap: 5, color: "#0d7a5f", fontSize: ".8rem", fontWeight: 600, cursor: "pointer" }}>
+              <svg viewBox="0 0 24 24" style={{ width: 15, height: 15, stroke: "#0d7a5f", fill: "none", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Ask Animal Expert
+            </span>
+          </div>
         </div>
-        {/* Mobile search below logo */}
+        {/* Mobile search below grid */}
         {isMobile && (
           <div style={{ marginTop: 8 }}>
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search animals…" style={{ width: "100%", padding: "8px 14px", border: "1.5px solid #dce4e1", borderRadius: 8, fontSize: ".92rem", outline: "none", color: "#555", boxSizing: "border-box" }} />
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search animals…" style={{ width: "100%", padding: "7px 14px", border: "1px solid #dce4e1", borderRadius: 8, fontSize: ".88rem", outline: "none", color: "#555", boxSizing: "border-box" }} />
           </div>
         )}
       </header>
@@ -270,7 +292,7 @@ export default function AnimalLibrary() {
 // ─── SIDEBAR MENU BUTTON (single category item) ───
 function CatBtn({ label, emoji, active, color, onClick }) {
   return (
-    <button onClick={onClick} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", padding: "5px 18px", border: "none", background: "none", cursor: "pointer", fontSize: ".94rem", color: active ? color : "#777", fontWeight: active ? 600 : 400, borderLeft: `3px solid ${active ? color : "transparent"}`, transition: "all .15s" }}>
+    <button onClick={onClick} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", padding: "5px 18px", border: "none", background: active ? "#eef7f4" : "none", cursor: "pointer", fontSize: ".94rem", color: active ? color : "#777", fontWeight: active ? 600 : 400, borderLeft: `3px solid ${active ? color : "transparent"}`, transition: "all .15s" }}>
       <span style={{ fontSize: "1.3rem" }}>{emoji}</span>
       <span>{label}</span>
     </button>
@@ -335,7 +357,7 @@ function DetailView({ animal, char, onBack, onAskAI }) {
         </div>
       </div>
       {/* Footer - outside the white box */}
-      <div style={{ textAlign: "center", padding: "24px 0 8px", fontSize: ".78rem", color: "#999" }}>Powered by Grandma ❤️</div>
+      <div style={{ textAlign: "center", padding: "24px 0 8px", fontSize: ".68rem", color: "#aaa" }}>Powered by Grandma <span style={{ color: "#e0aab8" }}>&hearts;</span></div>
     </div>
   );
 }
