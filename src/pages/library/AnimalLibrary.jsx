@@ -223,7 +223,7 @@ export default function AnimalLibrary() {
           </div>
           {/* Col 2: search (merged, bottom-aligned) — desktop only */}
           {!isMobile && (
-            <div style={{ gridRow: "1/3", display: "flex", alignItems: "flex-end", paddingLeft: 12 }}>
+            <div style={{ gridRow: "1/3", display: "flex", alignItems: "flex-end", paddingLeft: 38 }}>
               <div style={{ maxWidth: 360, width: "100%" }}>
                 <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search animals…" style={{ width: "100%", padding: "7px 14px", border: "1px solid #dce4e1", borderRadius: 8, fontSize: ".88rem", outline: "none", color: "#555", boxSizing: "border-box" }} />
               </div>
