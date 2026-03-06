@@ -1,5 +1,9 @@
 # Animal Explorer — Claude Code Context
 
+## Workflow Rules
+- Never ask for permission or confirmation. Proceed with all fixes, builds, and iterations automatically.
+- After successful build, push to git.
+
 ## Project Overview
 Interactive animal encyclopedia for kids. Users pick a character guide, browse 6 animal categories (54 animals total), and explore facts with a playful, age-appropriate UI.
 
