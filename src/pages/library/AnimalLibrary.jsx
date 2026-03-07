@@ -327,14 +327,14 @@ function DetailView({ animal, char, onBack, onAskAI }) {
   return (
     <div style={{ padding: "20px 24px" }}>
       <div onClick={onBack} style={{ fontSize: ".92rem", color: col.primary, cursor: "pointer", fontWeight: 500, marginBottom: 16, display: "inline-block" }}>← Back</div>
-      <div style={{ marginBottom: 18 }}>
-        <div style={{ fontSize: "1.3rem", fontWeight: 700, color: "#333", display: "flex", alignItems: "center", gap: 10 }}>
-          {animalIcons[animal.name] && <span style={{ display: "inline-flex", transform: "scale(1.45)", transformOrigin: "center" }}>{animalIcons[animal.name]()}</span>}
-          {animal.name}
+      <div style={{ background: "#fff", borderRadius: 14, boxShadow: "0 2px 10px rgba(0,0,0,.04)", padding: "24px 24px 24px" }}>
+        <div style={{ marginBottom: 14 }}>
+          <div style={{ fontSize: "1.3rem", fontWeight: 700, color: "#333", display: "flex", alignItems: "center", gap: 10 }}>
+            {animalIcons[animal.name] && <span style={{ display: "inline-flex", transform: "scale(1.45)", transformOrigin: "center" }}>{animalIcons[animal.name]()}</span>}
+            {animal.name}
+          </div>
+          <div style={{ fontSize: ".88rem", color: col.primary, fontWeight: 600, marginTop: 3 }}>{categories.find(c => c.id === animal.cat)?.label}</div>
         </div>
-        <div style={{ fontSize: ".88rem", color: col.primary, fontWeight: 600, marginTop: 3 }}>{categories.find(c => c.id === animal.cat)?.label}</div>
-      </div>
-      <div style={{ background: "#fff", borderRadius: 14, boxShadow: "0 2px 10px rgba(0,0,0,.04)", padding: "4px 24px 24px" }}>
         <Sec icon="📏" title="Size">{animal.size}</Sec>
         <Sec icon="🍽️" title="Food">{animal.food}</Sec>
         <Sec icon="🏠" title="Habitat">{animal.habitat}</Sec>
