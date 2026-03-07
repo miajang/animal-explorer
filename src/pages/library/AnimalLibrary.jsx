@@ -177,14 +177,14 @@ export default function AnimalLibrary() {
         <div style={{ fontSize: "1.08rem", color: "#888", marginBottom: 16 }}>Welcome, <span style={{ color: "#0d7a5f", fontWeight: 600 }}>{profile?.name || "Evan"}</span>!</div>
         {filtered.length === 0 && <div style={{ background: "#fff", borderRadius: 12, padding: "48px 20px", fontSize: "1rem", color: "#aaa", textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,.04)" }}>No animals match your search.</div>}
         {filtered.length > 0 && (
-          <div style={{ background: "#fff", borderRadius: 12, padding: "22px 24px", boxShadow: "0 1px 3px rgba(0,0,0,.04)" }}>
+          <>
             <div style={{ fontSize: "1.1rem", fontWeight: 600, letterSpacing: ".03em", marginBottom: 14, color: catColors[activeCat].primary }}>
               {categories.find(c => c.id === activeCat)?.emoji} {categories.find(c => c.id === activeCat)?.label}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))", gap: 18 }}>
               {filtered.map((a) => <AnimalCard key={a.id} animal={a} onClick={() => setSelectedAnimal(a)} />)}
             </div>
-          </div>
+          </>
         )}
         {/* Footer */}
         <div style={{ padding: "32px 0 12px", textAlign: "center" }}>
@@ -300,7 +300,7 @@ function CatBtn({ label, emoji, active, color, onClick }) {
 function AnimalCard({ animal, onClick }) {
   const col = catColors[animal.cat];
   return (
-    <div onClick={onClick} style={{ background: "#f8faf9", borderRadius: 12, overflow: "hidden", cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s" }}
+    <div onClick={onClick} style={{ background: "#fff", borderRadius: 12, overflow: "hidden", cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s" }}
       onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,.09)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
       onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }}>
       <div style={{ padding: "20px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
