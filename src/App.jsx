@@ -3,7 +3,6 @@ import Gallery from './pages/Gallery';
 import AnimalLibrary from './pages/library/AnimalLibrary';
 import AnimalSeek from './pages/games/AnimalSeek';
 import BugBattle from './pages/games/BugBattle';
-import SwampPuzzle from './pages/games/SwampPuzzle';
 
 export default function App() {
   return (
@@ -12,7 +11,6 @@ export default function App() {
       <Route path="/library/animal-explorer" element={<AnimalLibrary />} />
       <Route path="/games/animal-seek" element={<AnimalSeek />} />
       <Route path="/games/bug-battle" element={<BugBattle />} />
-      <Route path="/games/swamp-puzzle" element={<SwampPuzzle />} />
     </Routes>
   );
 }

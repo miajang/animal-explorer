@@ -30,15 +30,6 @@ export const APPS = [
     accent: '#5D4037',
     icon: 'swords',
   },
-  {
-    id: 'swamp-puzzle',
-    title: 'Word Match',
-    description: 'See the animal, find the word — how fast can you match them all?',
-    category: 'games',
-    path: '/games/swamp-puzzle',
-    accent: '#1a3a2a',
-    icon: 'puzzle',
-  },
 ];
 
 /**
