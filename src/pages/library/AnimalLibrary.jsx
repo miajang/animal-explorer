@@ -173,14 +173,14 @@ export default function AnimalLibrary() {
   ) : (
     <>
       {/* Welcome bar */}
-      <div style={{ background: "#f5f7f6", padding: "22px 24px 12px", display: "flex", alignItems: "center" }}>
+      <div style={{ background: "#fff", borderBottom: "1px solid #eaf0ed", padding: "14px 24px", display: "flex", alignItems: "center" }}>
         <span style={{ fontSize: "1.08rem", color: "#888" }}>Welcome, <span style={{ color: "#0d7a5f", fontWeight: 600 }}>{profile?.name || "Evan"}</span>!</span>
       </div>
       {/* Card grid */}
       <div style={{ padding: "20px 24px" }}>
-        {filtered.length === 0 && <div style={{ background: "#fff", borderRadius: 10, padding: "48px 20px", fontSize: "1rem", color: "#aaa", textAlign: "center" }}>No animals match your search.</div>}
+        {filtered.length === 0 && <div style={{ background: "#fff", borderRadius: 12, padding: "48px 20px", fontSize: "1rem", color: "#aaa", textAlign: "center", boxShadow: "0 1px 3px rgba(0,0,0,.04)" }}>No animals match your search.</div>}
         {filtered.length > 0 && (
-          <div>
+          <div style={{ background: "#fff", borderRadius: 12, padding: "22px 24px", boxShadow: "0 1px 3px rgba(0,0,0,.04)" }}>
             <div style={{ fontSize: "1.1rem", fontWeight: 600, letterSpacing: ".03em", marginBottom: 14, color: catColors[activeCat].primary }}>
               {categories.find(c => c.id === activeCat)?.emoji} {categories.find(c => c.id === activeCat)?.label}
             </div>
@@ -278,7 +278,7 @@ export default function AnimalLibrary() {
           </aside>
         )}
         {/* Main body */}
-        <main style={{ flex: 1, background: "#f5f7f6", overflowY: "auto" }}>
+        <main style={{ flex: 1, background: "#f2f4f8", overflowY: "auto" }}>
           {bodyContent}
         </main>
       </div>
@@ -303,9 +303,9 @@ function CatBtn({ label, emoji, active, color, onClick }) {
 function AnimalCard({ animal, onClick }) {
   const col = catColors[animal.cat];
   return (
-    <div onClick={onClick} style={{ background: "#fff", borderRadius: 12, overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,.05)", borderTop: `3px solid ${col.primary}`, cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s" }}
+    <div onClick={onClick} style={{ background: "#f8faf9", borderRadius: 12, overflow: "hidden", borderTop: `3px solid ${col.primary}`, cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s" }}
       onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,.09)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-      onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,.05)"; e.currentTarget.style.transform = "none"; }}>
+      onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }}>
       <div style={{ padding: "20px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
         <div style={{ fontSize: "1.12rem", fontWeight: 500, color: "#444", lineHeight: 1.3, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
           {animalIcons[animal.name] && animalIcons[animal.name]()}
