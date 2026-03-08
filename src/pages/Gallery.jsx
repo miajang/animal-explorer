@@ -5,7 +5,7 @@ export default function Gallery() {
   const apps = getApps();
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen p-6" style={{ background: "#F9FAFB" }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-6">

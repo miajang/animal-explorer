@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import animalIcons from "./animalIcons";
 
 // ─── CATEGORIES (sidebar navigation items) ───
@@ -101,7 +100,6 @@ const animals = [
 
 // ─── MAIN APP (state, layout, routing between views) ───
 export default function AnimalLibrary() {
-  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [view, setView] = useState("loading");
   const [activeCat, setActiveCat] = useState("amphibians");
@@ -120,12 +118,11 @@ export default function AnimalLibrary() {
   const [search, setSearch] = useState("");
   const [selectedAnimal, setSelectedAnimal] = useState(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const ck = () => setIsMobile(window.innerWidth <= 820);
+    const ck = () => setIsMobile(window.innerWidth <= 768);
     ck(); window.addEventListener("resize", ck);
     return () => window.removeEventListener("resize", ck);
   }, []);
@@ -148,7 +145,7 @@ export default function AnimalLibrary() {
   // ── Onboarding gate ──
   if (view === "loading") return <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Segoe UI',system-ui,sans-serif", color: "#aaa" }}>Loading...</div>;
 
-  const navigateTo = (catId) => { setActiveCat(catId); setSelectedAnimal(null); setDrawerOpen(false); };
+  const navigateTo = (catId) => { setActiveCat(catId); setSelectedAnimal(null); };
 
   // ── SIDEBAR CONTENT (menu items + character guide + ask AI link) ──
   const sidebarContent = (
@@ -201,12 +198,10 @@ export default function AnimalLibrary() {
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: "#fff", fontFamily: "'Segoe UI',system-ui,sans-serif", color: "#555" }}>
-      {/* ── HEADER (logo, tagline, search, settings gear, hamburger) ── */}
+    <div style={{ minHeight: "100vh", background: "#fff", fontFamily: "'Segoe UI',system-ui,sans-serif", color: "#555", paddingBottom: 60 }}>
+      <style>{`@media(max-width:768px){.aeNavD{display:none!important}.aeBottomBar{display:flex!important}}`}</style>
+      {/* ── HEADER ── */}
       <header style={{ background: "#fff", borderBottom: "1px solid #e8eeec", position: "sticky", top: 0, zIndex: 100, padding: "12px 20px" }}>
-        <div onClick={() => navigate('/')} style={{ fontSize: ".78rem", color: "#999", cursor: "pointer", fontWeight: 500, marginBottom: 4, display: "inline-flex", alignItems: "center", gap: 3 }}>
-          <span style={{ fontSize: ".7rem" }}>←</span> Back to Apps
-        </div>
         <div style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gridTemplateRows: "auto auto", columnGap: 16, rowGap: 4 }}>
           {/* Col 1: icon + logo + tagline (merged, bottom-aligned) */}
           <div style={{ gridRow: "1/3", display: "flex", alignItems: "flex-end" }}>
@@ -234,11 +229,6 @@ export default function AnimalLibrary() {
               </button>
               {settingsOpen && <SettingsPopover profile={profile} setProfile={setProfile} onClose={() => setSettingsOpen(false)} />}
             </div>
-            {isMobile && (
-              <button onClick={() => setDrawerOpen(true)} style={{ display: "flex", flexDirection: "column", gap: 4, width: 34, height: 34, background: "#f5f8f7", border: "1.5px solid #e0e8e5", borderRadius: 8, cursor: "pointer", padding: 7, alignItems: "stretch", justifyContent: "center", flexShrink: 0 }}>
-                <span style={{ height: 2, background: "#888", borderRadius: 2 }} /><span style={{ height: 2, background: "#888", borderRadius: 2 }} /><span style={{ height: 2, background: "#888", borderRadius: 2 }} />
-              </button>
-            )}
           </div>
           {/* Col 3 row 2: Ask Animal Expert */}
           <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", paddingRight: 8 }}>
@@ -256,28 +246,26 @@ export default function AnimalLibrary() {
         )}
       </header>
 
-      {/* ── MOBILE DRAWER (slides in from left) ── */}
-      {drawerOpen && <div onClick={() => setDrawerOpen(false)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.3)", zIndex: 300 }} />}
-      <div style={{ position: "fixed", top: 0, left: drawerOpen ? 0 : -300, width: 270, height: "100vh", background: "#fff", zIndex: 400, boxShadow: "4px 0 20px rgba(0,0,0,.12)", transition: "left .25s", overflowY: "auto" }}>
-        <div style={{ padding: "12px 18px", borderBottom: "1px solid #eaf0ed", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span style={{ fontWeight: 700, fontSize: ".92rem", color: "#333" }}>Menu</span>
-          <button onClick={() => setDrawerOpen(false)} style={{ width: 28, height: 28, borderRadius: 6, background: "#f5f7f6", border: "1px solid #e4e8e6", cursor: "pointer", fontSize: ".9rem", color: "#888", display: "flex", alignItems: "center", justifyContent: "center" }}>✕</button>
-        </div>
-        {sidebarContent}
-      </div>
-
       {/* ── MAIN LAYOUT (sidebar + body) ── */}
-      <div style={{ display: "flex", minHeight: "calc(100vh - 57px)" }}>
+      <div style={{ display: "flex", minHeight: "calc(100vh - 53px)" }}>
         {/* Desktop sidebar */}
-        {!isMobile && (
-          <aside style={{ width: 210, minWidth: 210, background: "#fff", borderRight: "1px solid #eaf0ed", position: "sticky", top: 57, height: "calc(100vh - 57px)", overflowY: "auto", display: "flex", flexDirection: "column" }}>
-            {sidebarContent}
-          </aside>
-        )}
+        <div className="aeNavD" style={{ width: 220, minWidth: 220, background: "#fff", borderRight: "1px solid #eaf0ed", padding: "12px 0", position: "sticky", top: 53, alignSelf: "flex-start", height: "calc(100vh - 53px)", overflowY: "auto", display: "flex", flexDirection: "column" }}>
+          {sidebarContent}
+        </div>
         {/* Main body */}
-        <main style={{ flex: 1, background: "#f2f4f8", overflowY: "auto" }}>
+        <main style={{ flex: 1, background: "#F9FAFB", overflowY: "auto" }}>
           {bodyContent}
         </main>
+      </div>
+
+      {/* ── MOBILE BOTTOM NAV ── */}
+      <div className="aeBottomBar" style={{ display: "none", position: "fixed", bottom: 0, left: 0, right: 0, background: "#fff", borderTop: "1px solid #e8eeec", justifyContent: "space-evenly", alignItems: "center", zIndex: 200, boxShadow: "0 -2px 8px rgba(0,0,0,.06)", paddingTop: 8, paddingBottom: "calc(env(safe-area-inset-bottom) + 8px)", paddingLeft: 12, paddingRight: 12 }}>
+        {categories.map(c => (
+          <button key={c.id} onClick={() => navigateTo(c.id)} style={{ height: 56, border: "none", background: "transparent", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, padding: "0 4px", minWidth: 0 }} aria-label={c.label}>
+            <span style={{ fontSize: "1.1rem" }}>{c.emoji}</span>
+            <span style={{ fontSize: ".62rem", fontWeight: activeCat === c.id ? 600 : 400, color: activeCat === c.id ? catColors[c.id].primary : "#999", letterSpacing: ".01em" }}>{c.label.replace("Ocean Animals","Ocean")}</span>
+          </button>
+        ))}
       </div>
 
       {/* ── ASK AI OVERLAY (chat modal) ── */}
@@ -300,9 +288,9 @@ function CatBtn({ label, emoji, active, color, onClick }) {
 function AnimalCard({ animal, onClick }) {
   const col = catColors[animal.cat];
   return (
-    <div onClick={onClick} style={{ background: "#fff", borderRadius: 12, overflow: "hidden", cursor: "pointer", display: "flex", flexDirection: "column", transition: "box-shadow .15s, transform .15s" }}
+    <div onClick={onClick} style={{ background: "#fff", borderRadius: 12, overflow: "hidden", cursor: "pointer", display: "flex", flexDirection: "column", boxShadow: "0 2px 8px rgba(0,0,0,.04)", transition: "box-shadow .15s, transform .15s" }}
       onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,.09)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-      onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }}>
+      onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,.04)"; e.currentTarget.style.transform = "none"; }}>
       <div style={{ padding: "20px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
         <div style={{ fontSize: "1.12rem", fontWeight: 500, color: "#444", lineHeight: 1.3, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
           {animalIcons[animal.name] && animalIcons[animal.name]()}
