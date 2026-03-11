@@ -269,7 +269,7 @@ export default function AnimalLibrary() {
         {categories.map(c => (
           <button key={c.id} onClick={() => navigateTo(c.id)} style={{ height: 50, border: "none", background: "transparent", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, padding: "0 2px", minWidth: 0 }} aria-label={c.label}>
             <span style={{ fontSize: "1.4rem" }}>{c.emoji}</span>
-            <span style={{ fontSize: ".78rem", fontWeight: activeCat === c.id ? 600 : 500, color: activeCat === c.id ? catColors[c.id].primary : "#999", letterSpacing: ".01em" }}>{c.label.replace("Ocean Animals","Ocean")}</span>
+            <span style={{ fontSize: ".78rem", fontWeight: activeCat === c.id ? 600 : 500, color: activeCat === c.id ? catColors[c.id].primary : "#666", letterSpacing: ".01em" }}>{c.label.replace("Ocean Animals","Ocean")}</span>
           </button>
         ))}
       </div>
