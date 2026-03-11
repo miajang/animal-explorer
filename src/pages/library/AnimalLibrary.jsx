@@ -19,6 +19,9 @@ const characters = [
   { id: "turtle", name: "Sea Turtle", emoji: "🐢", greeting: "Slow and steady wins the race! Let's dive in!" },
   { id: "treefrog", name: "Red-Eyed Tree Frog", emoji: "🐸", greeting: "Ribbit! I see everything with my big red eyes!" },
   { id: "mantis", name: "Praying Mantis", emoji: "🪲", greeting: "Stay still... now let's hunt for cool facts!" },
+  { id: "cricket", name: "Cricket", emoji: "🦗", greeting: "Chirp chirp! I've got fun facts to share!" },
+  { id: "earthworm", name: "Earthworm", emoji: "🪱", greeting: "Let's dig deep into the animal world!" },
+  { id: "spider", name: "Spider", emoji: "🕷️", greeting: "Let's spin a web of cool animal facts!" },
 ];
 
 // ─── CATEGORY COLORS (primary + light bg per category) ───
@@ -353,6 +356,11 @@ function DetailView({ animal, char, onBack, onAskAI }) {
 
 // ─── SETTINGS POPOVER (edit profile: name + character) ───
 function SettingsPopover({ profile, setProfile, onClose }) {
+  const save = (name, character) => {
+    const p = { ...profile, name: name.trim() || "Evan", character };
+    setProfile(p);
+    try { localStorage.setItem("profile", JSON.stringify(p)); } catch {}
+  };
   const [n, setN] = useState(profile?.name || "");
   const [ch, setCh] = useState(profile?.character || "basilisk");
   useEffect(() => {
@@ -367,19 +375,15 @@ function SettingsPopover({ profile, setProfile, onClose }) {
         <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", fontSize: ".9rem", color: "#aaa" }}>✕</button>
       </div>
       <label style={lblS}>Name</label>
-      <input value={n} onChange={e => setN(e.target.value)} style={inpS} />
+      <input value={n} onChange={e => { setN(e.target.value); save(e.target.value, ch); }} style={inpS} />
       <label style={{ ...lblS, marginTop: 20 }}>Animal Character</label>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 8 }}>
         {characters.map(c => (
-          <div key={c.id} onClick={() => setCh(c.id)} style={{ textAlign: "center", cursor: "pointer", padding: 8, borderRadius: 12, border: ch === c.id ? "1px solid #0d7a5f" : "1px solid #e8eeec", background: ch === c.id ? "#e8f5e9" : "#fff", transition: "all .15s" }}>
+          <div key={c.id} onClick={() => { setCh(c.id); save(n, c.id); }} style={{ textAlign: "center", cursor: "pointer", padding: 8, borderRadius: 12, border: ch === c.id ? "1px solid #0d7a5f" : "1px solid #e8eeec", background: ch === c.id ? "#e8f5e9" : "#fff", transition: "all .15s" }}>
             <div style={{ fontSize: "1.6rem" }}>{c.emoji}</div>
           </div>
         ))}
       </div>
-      <button onClick={() => { const p = { ...profile, name: n.trim() || "Evan", character: ch }; setProfile(p); try { localStorage.setItem("profile", JSON.stringify(p)); } catch {} onClose(); }}
-        style={{ width: "100%", marginTop: 20, padding: "10px 0", background: "#0d7a5f", color: "#fff", border: "none", borderRadius: 10, fontSize: ".88rem", fontWeight: 600, cursor: "pointer" }}>
-        Save Changes
-      </button>
     </div>
   );
 }
