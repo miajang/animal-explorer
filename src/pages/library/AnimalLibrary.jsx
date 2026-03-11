@@ -16,6 +16,9 @@ const characters = [
   { id: "basilisk", name: "Basilisk Lizard", emoji: "🦎", greeting: "I can crawl on walls! Let's explore!" },
   { id: "anaconda", name: "Anaconda", emoji: "🐍", greeting: "Ssssup! Let's discover amazing animals!" },
   { id: "crab", name: "Crab", emoji: "🦀", greeting: "Snip snap! Ready to learn cool facts?" },
+  { id: "turtle", name: "Sea Turtle", emoji: "🐢", greeting: "Slow and steady wins the race! Let's dive in!" },
+  { id: "treefrog", name: "Red-Eyed Tree Frog", emoji: "🐸", greeting: "Ribbit! I see everything with my big red eyes!" },
+  { id: "mantis", name: "Praying Mantis", emoji: "🪲", greeting: "Stay still... now let's hunt for cool facts!" },
 ];
 
 // ─── CATEGORY COLORS (primary + light bg per category) ───
@@ -358,7 +361,7 @@ function SettingsPopover({ profile, setProfile, onClose }) {
     return () => document.removeEventListener("click", h);
   }, [onClose]);
   return (
-    <div className="sp-inner" onClick={e => e.stopPropagation()} style={{ position: "absolute", right: 0, top: 44, background: "#fff", border: "1px solid #e4e8e6", borderRadius: 14, padding: "20px 22px", boxShadow: "0 6px 24px rgba(0,0,0,.1)", zIndex: 200, width: 300 }}>
+    <div className="sp-inner" onClick={e => e.stopPropagation()} style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", background: "#fff", border: "1px solid #e4e8e6", borderRadius: 14, padding: "20px 22px", boxShadow: "0 6px 24px rgba(0,0,0,.15)", zIndex: 200, width: "min(300px, calc(100vw - 40px))" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
         <span style={{ fontSize: ".78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".07em", color: "#aaa" }}>Settings</span>
         <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", fontSize: ".9rem", color: "#aaa" }}>✕</button>
@@ -366,9 +369,9 @@ function SettingsPopover({ profile, setProfile, onClose }) {
       <label style={lblS}>Name</label>
       <input value={n} onChange={e => setN(e.target.value)} style={inpS} />
       <label style={{ ...lblS, marginTop: 20 }}>Animal Character</label>
-      <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginTop: 8 }}>
         {characters.map(c => (
-          <div key={c.id} onClick={() => setCh(c.id)} style={{ textAlign: "center", cursor: "pointer", padding: 8, borderRadius: 12, border: ch === c.id ? "1px solid #0d7a5f" : "1px solid #e8eeec", background: ch === c.id ? "#e8f5e9" : "#fff", flex: 1, transition: "all .15s" }}>
+          <div key={c.id} onClick={() => setCh(c.id)} style={{ textAlign: "center", cursor: "pointer", padding: 8, borderRadius: 12, border: ch === c.id ? "1px solid #0d7a5f" : "1px solid #e8eeec", background: ch === c.id ? "#e8f5e9" : "#fff", transition: "all .15s" }}>
             <div style={{ fontSize: "1.6rem" }}>{c.emoji}</div>
           </div>
         ))}
