@@ -268,8 +268,8 @@ export default function AnimalLibrary() {
       <div className="aeBottomBar" style={{ display: "none", position: "fixed", bottom: 0, left: 0, right: 0, background: "#fff", borderTop: "1px solid #e8eeec", justifyContent: "space-evenly", alignItems: "center", zIndex: 200, boxShadow: "0 -2px 8px rgba(0,0,0,.06)", paddingTop: 12, paddingBottom: "calc(env(safe-area-inset-bottom) + 10px)", paddingLeft: 8, paddingRight: 8 }}>
         {categories.map(c => (
           <button key={c.id} onClick={() => navigateTo(c.id)} style={{ height: 50, border: "none", background: "transparent", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, padding: "0 2px", minWidth: 0 }} aria-label={c.label}>
-            <span style={{ fontSize: "1.25rem" }}>{c.emoji}</span>
-            <span style={{ fontSize: ".65rem", fontWeight: activeCat === c.id ? 600 : 500, color: activeCat === c.id ? catColors[c.id].primary : "#999", letterSpacing: ".01em" }}>{c.label.replace("Ocean Animals","Ocean")}</span>
+            <span style={{ fontSize: "1.4rem" }}>{c.emoji}</span>
+            <span style={{ fontSize: ".78rem", fontWeight: activeCat === c.id ? 600 : 500, color: activeCat === c.id ? catColors[c.id].primary : "#999", letterSpacing: ".01em" }}>{c.label.replace("Ocean Animals","Ocean")}</span>
           </button>
         ))}
       </div>
@@ -283,8 +283,8 @@ export default function AnimalLibrary() {
 // ─── SIDEBAR MENU BUTTON (single category item) ───
 function CatBtn({ label, emoji, active, color, onClick }) {
   return (
-    <button onClick={onClick} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", padding: "5px 18px", border: "none", background: active ? "#eef7f4" : "none", cursor: "pointer", fontSize: ".94rem", color: active ? color : "#777", fontWeight: active ? 600 : 400, borderLeft: `3px solid ${active ? color : "transparent"}`, transition: "all .15s" }}>
-      <span style={{ fontSize: "1.3rem" }}>{emoji}</span>
+    <button onClick={onClick} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left", padding: "5px 18px", border: "none", background: active ? "#eef7f4" : "none", cursor: "pointer", fontSize: "1.1rem", color: active ? color : "#777", fontWeight: active ? 600 : 400, borderLeft: `3px solid ${active ? color : "transparent"}`, transition: "all .15s" }}>
+      <span style={{ fontSize: "1.45rem" }}>{emoji}</span>
       <span>{label}</span>
     </button>
   );
@@ -298,11 +298,11 @@ function AnimalCard({ animal, onClick }) {
       onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,.09)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
       onMouseLeave={e => { e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,.04)"; e.currentTarget.style.transform = "none"; }}>
       <div style={{ padding: "20px 24px", flex: 1, display: "flex", flexDirection: "column" }}>
-        <div style={{ fontSize: "1.12rem", fontWeight: 500, color: "#444", lineHeight: 1.3, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={{ fontSize: "1.25rem", fontWeight: 500, color: "#444", lineHeight: 1.3, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
           {animalIcons[animal.name] && animalIcons[animal.name]()}
           {animal.name}
         </div>
-        <div style={{ fontSize: ".92rem", color: "#555", lineHeight: 1.65, flex: 1 }}>{animal.who}</div>
+        <div style={{ fontSize: "1.08rem", color: "#555", lineHeight: 1.65, flex: 1 }}>{animal.who}</div>
       </div>
     </div>
   );
@@ -314,35 +314,35 @@ function DetailView({ animal, char, onBack, onAskAI }) {
   // Section component — no divider lines, header color provides separation
   const Sec = ({ icon, title, children }) => (
     <div style={{ padding: "18px 0" }}>
-      <div style={{ fontSize: ".88rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: col.primary, marginBottom: 8 }}>{icon} {title}</div>
-      <div style={{ fontSize: ".94rem", color: "#555", lineHeight: 1.7 }}>{children}</div>
+      <div style={{ fontSize: "1.02rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: col.primary, marginBottom: 8 }}>{icon} {title}</div>
+      <div style={{ fontSize: "1.1rem", color: "#555", lineHeight: 1.7 }}>{children}</div>
     </div>
   );
   return (
     <div style={{ padding: "20px 24px" }}>
-      <div onClick={onBack} style={{ fontSize: ".92rem", color: col.primary, cursor: "pointer", fontWeight: 500, marginBottom: 16, display: "inline-block" }}>← Back</div>
+      <div onClick={onBack} style={{ fontSize: "1.05rem", color: col.primary, cursor: "pointer", fontWeight: 500, marginBottom: 16, display: "inline-block" }}>← Back</div>
       <div style={{ background: "#fff", borderRadius: 14, boxShadow: "0 2px 10px rgba(0,0,0,.04)", padding: "24px 24px 24px" }}>
         <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: "1.3rem", fontWeight: 700, color: "#333", display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ fontSize: "1.45rem", fontWeight: 700, color: "#333", display: "flex", alignItems: "center", gap: 10 }}>
             {animalIcons[animal.name] && <span style={{ display: "inline-flex", transform: "scale(1.45)", transformOrigin: "center" }}>{animalIcons[animal.name]()}</span>}
             {animal.name}
           </div>
-          <div style={{ fontSize: ".88rem", color: col.primary, fontWeight: 600, marginTop: 3 }}>{categories.find(c => c.id === animal.cat)?.label}</div>
+          <div style={{ fontSize: "1.02rem", color: col.primary, fontWeight: 600, marginTop: 3 }}>{categories.find(c => c.id === animal.cat)?.label}</div>
         </div>
         <Sec icon="📏" title="Size">{animal.size}</Sec>
         <Sec icon="🍽️" title="Food">{animal.food}</Sec>
         <Sec icon="🏠" title="Habitat">{animal.habitat}</Sec>
         <div style={{ padding: "18px 0" }}>
-          <div style={{ fontSize: ".88rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: col.primary, marginBottom: 8 }}>⭐ Fun Facts</div>
+          <div style={{ fontSize: "1.02rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: ".06em", color: col.primary, marginBottom: 8 }}>⭐ Fun Facts</div>
           {animal.facts.map((f, i) => (
-            <div key={i} style={{ fontSize: ".94rem", color: "#555", lineHeight: 1.7, padding: "3px 0 3px 16px", position: "relative" }}>
+            <div key={i} style={{ fontSize: "1.1rem", color: "#555", lineHeight: 1.7, padding: "3px 0 3px 16px", position: "relative" }}>
               <span style={{ position: "absolute", left: 0, color: col.primary, fontWeight: 700 }}>•</span>{f}
             </div>
           ))}
         </div>
         {/* Ask AI button */}
         <div style={{ paddingTop: 18, marginTop: 4, textAlign: "center" }}>
-          <div style={{ cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, color: "#3a9e7e", fontSize: ".9rem", fontWeight: 600 }} onClick={onAskAI}>
+          <div style={{ cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6, color: "#3a9e7e", fontSize: "1.05rem", fontWeight: 600 }} onClick={onAskAI}>
             🔍 <span>Ask Animal Expert</span>
           </div>
         </div>
